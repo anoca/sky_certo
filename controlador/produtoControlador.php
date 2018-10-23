@@ -54,47 +54,59 @@ function visualizar($id) {
 
 /** anon */
 function addCarrinho($id, $nome, $preco){
+    //criar a sessao carrinho
     if (!isset ($_SESSION["carrinho"])){
         $_SESSION["carrinho"]= array ();
-        $_SESSION["carrinho"][$id]["quantidade"]=1;
-        $_SESSION["carrinho"][$id]["nome"]= $nome;
-        $_SESSION["carrinho"][$id]["preco"]=$preco;
-        
-    }elseif( !isset ($_SESSION["carrinho"][$id])){
-        $_SESSION["carrinho"][$id]["quantidade"]=1;
-        $_SESSION["carrinho"][$id]["nome"]= $nome;
-        $_SESSION["carrinho"][$id]["preco"]=$preco;
-        
+        $_SESSION["carrinho"]["produtos"] = array();
+        $_SESSION["carrinho"]["total"]=0;
+    }
+   
+    //ver se existe o produto dentro do carrinho
+    if( !isset ($_SESSION["carrinho"]["produtos"][$id])){
+        $_SESSION["carrinho"]["produtos"][$id]["quantidade"]=1;
+        $_SESSION["carrinho"]["produtos"][$id]["nome"]= $nome;
+        $_SESSION["carrinho"]["produtos"][$id]["preco"]=$preco;
+        $_SESSION["carrinho"]["produtos"][$id]["idProduto"]=$id;
+        $_SESSION["carrinho"]["total"]+=$preco;
     }else{
-        $_SESSION["carrinho"][$id]["quantidade"]+=1;
-        $_SESSION["carrinho"][$id]["preco"]+=$_SESSION["carrinho"][$id]["preco"];
+        //o produto ja existe
+        $_SESSION["carrinho"]["produtos"][$id]["quantidade"]+=1;
+        $_SESSION["carrinho"]["total"]+=$preco;
     }  
-     redirecionar("produto/listarCarrinho");
+
+        
+    redirecionar("produto/listarCarrinho");
 }
 /** anon */
 function listarCarrinho() {
-    print_r($_SESSION["carrinho"]);
-    $carrinho=array();
-    $c=0;
-   
-    foreach ($_SESSION["carrinho"] as $id => $info) {
-         $carrinho[$c]["idProduto"]= $id;
-         $carrinho[$c]["quantidade"]= $info["quantidade"];
-         $carrinho[$c]["nome"]= $info["nome"];
-         $carrinho[$c]["preco"]= $info["preco"]; 
-
-         $c+=1;
-
-
+    
+    
+    if(!isset($_SESSION["carrinho"])) {
+        echo "Nao tem nada no carrinho";
+    } else {
+        $dados["carrinho"] = $_SESSION["carrinho"]["produtos"];
+        $dados["totalCarrinho"] = $_SESSION["carrinho"]["total"];
+        exibir("produto/carrinho", $dados);
     }
-    $dados["carrinho"] = $carrinho;
-    //print_r($carrinho);
-    exibir("produto/carrinho", $dados);
+    
 }
 /** anon */
 function deletarCarrinho($id){
-        unset($_SESSION["carrinho"][$id]);
-        redirecionar("produto/listarCarrinho");
+    
+    foreach($_SESSION["carrinho"]["produtos"] as $chave => $produto) {
+        
+        if($id == $produto["idProduto"]) {
+            //deleta esse kra!
+            $produto = $_SESSION["carrinho"]["produtos"][$chave];
+            $_SESSION["carrinho"]["total"] =  $_SESSION["carrinho"]["total"] - ($produto["preco"] * $produto["quantidade"]);
+            unset($_SESSION["carrinho"]["produtos"][$chave]);  
+        }
+    }
+    
+    //print_r($_SESSION["carrinho"]);
+    
+        //unset($_SESSION["carrinho"][$id]);
+    redirecionar("produto/listarCarrinho");
 }
 
 /** anon */
@@ -105,3 +117,8 @@ function buscar() {
 }
 
 
+function limparSessao() {
+    unset($_SESSION["carrinho"]);
+
+    die();
+}
