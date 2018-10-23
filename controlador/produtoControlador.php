@@ -79,7 +79,17 @@ function addCarrinho($id, $nome, $preco){
 }
 /** anon */
 function listarCarrinho() {
-    
+    if(isset($_POST["quantidade"]) && isset($_POST["id"])){
+        extract($_POST);
+        
+        if(!empty($_SESSION["carrinho"]["produtos"])){
+            $_SESSION["carrinho"]["total"] -= $_SESSION["carrinho"]["produtos"][$id]["preco"] * $_SESSION["carrinho"]["produtos"][$id]["quantidade"];
+            $_SESSION["carrinho"]["produtos"][$id]["quantidade"]=$quantidade;
+            $_SESSION["carrinho"]["total"] += $_SESSION["carrinho"]["produtos"][$id]["preco"]*$_SESSION["carrinho"]["produtos"][$id]["quantidade"];
+        }else{
+            $_SESSION["carrinho"]["total"] = 0;
+        }
+    }
     
     if(!isset($_SESSION["carrinho"])) {
         echo "Nao tem nada no carrinho";
