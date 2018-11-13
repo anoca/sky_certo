@@ -96,7 +96,6 @@ PRIMARY KEY(idPedido) ,
 FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario)
 ) engine = innodb;
 
-
 CREATE TABLE pedido_produto(
 idPedido_produto INT AUTO_INCREMENT,
 idProduto INT NOT NULL,
@@ -106,3 +105,35 @@ PRIMARY KEY(idPedido_produto),
 FOREIGN KEY(idProduto) REFERENCES produto(idProduto),
 FOREIGN KEY(idPedido) REFERENCES pedido(idPedido)
 ) engine = innodb;
+
+CREATE TABLE cupom(
+codCupom INT AUTO_INCREMENT,
+nomeCupom VARCHAR (60),
+porcentagemDesconto INT, 
+PRIMARY KEY(codCupom)
+) engine = innodb;
+
+INSERT INTO cupom (nomeCupom, porcentagemDesconto)
+VALUES ('lecalzao', 50);
+
+CREATE TABLE endereco(
+idEndereco INT AUTO_INCREMENT,
+idUsuario INT NOT NULL,
+rua INT NOT NULL,
+bairro INT NOT NULL,
+cidade INT NOT NULL,
+cep VARCHAR(5), 
+PRIMARY KEY(idEndereco),
+FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario)
+) engine = innodb;
+
+CREATE TABLE administrador(
+totalProduto INT NOT NULL,
+quantidade INT NOT NULL,
+ INT NOT NULL,
+cidade INT NOT NULL,
+cep VARCHAR(5), 
+PRIMARY KEY(idEndereco),
+FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario)
+) engine = innodb;
+

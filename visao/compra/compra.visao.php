@@ -33,8 +33,10 @@
            <input type="submit" name="Enviar" value="Enviar">
 	</form>
 <br>
-<?php echo "O valor total da compra com desconto é de R$: " . $totalCarrinho; ?>
+<?php echo "O valor total da compra com desconto é de R$: " . $descReal; ?>
 <br>
 <br>
 <a href="" class="btn btn-primary">Comprar</a>
+
+
 

@@ -39,3 +39,12 @@ function deletarUsuario($id) {
     return 'Usuario deletado com sucesso!';
             
 }
+
+function buscarCupom($cupom){
+    $comando="SELECT porcentagemDesconto FROM cupom WHERE nomeCupom = '$cupom'";
+    $resultado = mysqli_query($cnx = conn(), $comando);
+    if(!$resultado) { die('Erro ao encontrar cupom' . mysqli_error($cnx)); }
+    $resultado = mysqli_fetch_assoc($resultado);
+    
+    return $resultado["porcentagemDesconto"];
+}

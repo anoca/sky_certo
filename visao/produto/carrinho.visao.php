@@ -29,4 +29,5 @@
 <br>
 <br>
 <a href="./produto" class="btn btn-primary">Adicionar novo produto</a>
+<a href="./compra" class="btn btn-primary">Finalizar Compra</a>
 
