@@ -1,4 +1,4 @@
- <?php
+<?php
 
  require "modelo/produtoModelo.php";
  require "servicos/uploadImagemServico.php";
@@ -12,7 +12,7 @@
    $desconto = buscarCupom($cupom);
    if (!empty($desconto)) {
       $totalCarrinho = $_SESSION["carrinho"]["total"];
-      $descReal = $totalCarrinho - ($desconto * $totalCarrinho)/100;
+      $desconto = $totalCarrinho - ($desconto * $totalCarrinho)/100;
     
       alert("Desconto aplicado!");        
     }else{
@@ -26,6 +26,7 @@ if(!isset($_SESSION["carrinho"])) {
 } else {
   $dados["carrinho"] = $_SESSION["carrinho"]["produtos"];
   $dados["totalCarrinho"] = $_SESSION["carrinho"]["total"];
+  $dados["descReal"] = $desconto;
   exibir("compra/compra", $dados);
 }
 
