@@ -14,6 +14,16 @@ tipoUsuario VARCHAR(11),
 PRIMARY KEY(idUsuario)
 ) engine = innodb;
 
+CREATE TABLE endereco(
+idEndereco INT AUTO_INCREMENT,
+idUsuario INT NOT NULL,
+rua INT NOT NULL,
+bairro INT NOT NULL,
+cidade INT NOT NULL,
+cep VARCHAR(5), 
+PRIMARY KEY(idEndereco),
+FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario)
+) engine = innodb;
 
 CREATE TABLE produto(
 idProduto INT AUTO_INCREMENT,
@@ -116,24 +126,24 @@ PRIMARY KEY(codCupom)
 INSERT INTO cupom (nomeCupom, porcentagemDesconto)
 VALUES ('lecalzao', 50);
 
-CREATE TABLE endereco(
-idEndereco INT AUTO_INCREMENT,
-idUsuario INT NOT NULL,
-rua INT NOT NULL,
-bairro INT NOT NULL,
-cidade INT NOT NULL,
-cep VARCHAR(5), 
-PRIMARY KEY(idEndereco),
-FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario)
-) engine = innodb;
 
 CREATE TABLE administrador(
+idAdmin INT AUTO_INCREMENT,
 totalProduto INT NOT NULL,
 quantidade INT NOT NULL,
- INT NOT NULL,
-cidade INT NOT NULL,
-cep VARCHAR(5), 
-PRIMARY KEY(idEndereco),
-FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario)
+ProdutosDatas INT NOT NULL, 
+totalDeFaturamento INT NOT NULL,
+listaMunicipio INT NOT NULL, 
+PRIMARY KEY(idAdmin)
 ) engine = innodb;
 
+CREATE TABLE item_pedido(
+idItemPedido INT AUTO_INCREMENT,
+idUsuario INT NOT NULL,
+idEndereco INT NOT NULL,
+idProduto INT NOT NULL,
+PRIMARY KEY(idItemPedido)
+FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario),
+FOREIGN KEY(idEndereco) REFERENCES endereco(idEndereco),
+FOREIGN KEY(idProduto) REFERENCES produto(idProduto)
+) engine = innodb;
