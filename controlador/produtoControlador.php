@@ -1,4 +1,4 @@
-  <?php
+<?php
 
 require "modelo/produtoModelo.php";
 require "servicos/uploadImagemServico.php";
@@ -11,7 +11,7 @@ function index() {
     $dados["produtos"] = pegarTodosProdutos();
     exibir("produto/listar", $dados);
 }
-/** user */
+/** anon */
 function adicionar() {
     if (ehPost()) {
         extract($_POST);
@@ -96,6 +96,7 @@ function listarCarrinho() {
     } else {
         $dados["carrinho"] = $_SESSION["carrinho"]["produtos"];
         $dados["totalCarrinho"] = $_SESSION["carrinho"]["total"];
+        $dados["descReal"]= 0;
         exibir("produto/carrinho", $dados);
     }
     
