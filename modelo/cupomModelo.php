@@ -49,4 +49,3 @@ function buscarCupom($cupom){
     
     return $resultado["porcentagemDesconto"];
 }
-]
