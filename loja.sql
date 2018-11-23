@@ -17,10 +17,10 @@ PRIMARY KEY(idUsuario)
 CREATE TABLE endereco(
 idEndereco INT AUTO_INCREMENT,
 idUsuario INT NOT NULL,
-rua INT NOT NULL,
-bairro INT NOT NULL,
-cidade INT NOT NULL,
-cep VARCHAR(5), 
+rua VARCHAR(60),
+bairro VARCHAR(60),
+cidade VARCHAR(60),
+cep VARCHAR(11), 
 PRIMARY KEY(idEndereco),
 FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario)
 ) engine = innodb;
@@ -37,6 +37,9 @@ PRIMARY KEY(idProduto)
 
 INSERT INTO usuario (nome, email, senha, cpf,tipoUsuario)
 VALUES ('ana', 'ana@gmail', 'ana123456', '123456789','admin');
+
+INSERT INTO endereco (rua, bairro, cidade, cep)
+VALUES ('cambui', 'cohab', 'ue', '123456789');
 
 INSERT INTO produto (nmProduto, preco, descricao, sabor
 VALUES ('sabor do ceu', 12, 'o sol', 'creme');
@@ -142,7 +145,7 @@ idItemPedido INT AUTO_INCREMENT,
 idUsuario INT NOT NULL,
 idEndereco INT NOT NULL,
 idProduto INT NOT NULL,
-PRIMARY KEY(idItemPedido)
+PRIMARY KEY(idItemPedido),
 FOREIGN KEY(idUsuario) REFERENCES usuario(idUsuario),
 FOREIGN KEY(idEndereco) REFERENCES endereco(idEndereco),
 FOREIGN KEY(idProduto) REFERENCES produto(idProduto)
