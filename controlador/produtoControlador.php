@@ -26,7 +26,7 @@ function adicionar() {
         exibir("produto/formulario");
     }
 }
-/** user */
+/** admin */
 function deletar($id) {
     alert(deletarProduto($id));
     redirecionar("produto/index");
