@@ -1,10 +1,10 @@
-
 <h2>Listar produtos</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
+            <th>IMAGEM</th>
             <th>NOME</th>
             <th>PREÇO</th>
             <th>DESCRIÇÃO</th>
@@ -18,6 +18,7 @@
     <?php foreach ($produtos as $produto): ?>
     <tr>
         <td><?=$produto['idProduto']?></td>
+        <td><img class="imagem-produto" src="<?=$produto['imagem']?>"></td>
         <td><?=$produto['nmProduto']?></td>
         <td><?=$produto['preco']?></td>
         <td><?=$produto['descricao']?></td>
